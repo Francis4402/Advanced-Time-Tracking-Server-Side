@@ -120,13 +120,13 @@ app.get('/allprojects/:id', async (req, res) => {
 })
 
 
-app.post('/allprojects', async (req, res) => {
+app.post('/allprojects', verifyToken, async (req, res) => {
     const timer = req.body;
     const result = await projectCollection.insertOne(timer);
     res.send(result);
 })
 
-app.put('/allprojects/:id', async (req, res) => {
+app.put('/allprojects/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
     const filter = {_id: new ObjectId(id)}
     const options = {upsert: true};
